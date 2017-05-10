@@ -1,0 +1,24 @@
+{
+  "name": "spider",
+  "version": "1.0.0",
+  "description": "this project aimed at collect the frot-end develop salary in each city of china",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ningzhang",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.4.0",
+    "cheerio": "^0.22.0",
+    "debug": "^2.6.6",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "iconv-lite": "^0.4.17",
+    "mysql": "^2.13.0",
+    "request": "^2.81.0",
+    "superagent": "^3.5.2",
+    "url": "^0.11.0"
+  }
+}

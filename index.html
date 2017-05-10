@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+</head>
+
+<body style="margin:0 auto;width:100%">
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px;width:60%;margin:0 auto;padding-top:50px;"></div>
+	  <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+	  <script>
+	  require.config({
+		paths:{
+			echarts:'http://echarts.baidu.com/build/dist'
+		}
+	  });
+
+	  		var datacity=[];
+			var dataFrontEndAverage=[];
+			var dataCAverage=[];
+			var dataJavaAverage=[];
+			var dataTestAverage=[];
+			var dataSuanfaAverage=[];
+			var dataFrontEnd={"北京":{"average":"23.407k","max":"60k"},"广州":{"average":"11.863k","max":"35k"},"上海":{"average":"19.921k","max":"50k"},"深圳":{"average":"18.018k","max":"60k"}};
+			var dataJava={"北京":{"average":"22.229k","max":"50k"},"广州":{"average":"14.139k","max":"40k"},"上海":{"average":"19.202k","max":"50k"},"深圳":{"average":"17.190k","max":"50k"}};
+			var dataC={"北京":{"average":"20.833k","max":"50k"},"广州":{"average":"13.772k","max":"50k"},"上海":{"average":"17.078k","max":"60k"},"深圳":{"average":"16.583k","max":"50k"}};
+			var dataTest={"北京":{"average":"23.407k","max":"60k"},"广州":{"average":"11.863k","max":"35k"},"上海":{"average":"19.921k","max":"50k"},"深圳":{"average":"18.018k","max":"60k"}};
+			var dataSuanfa={"北京":{"average":"28.773k","max":"100k"},"广州":{"average":"19.258k","max":"100k"},"上海":{"average":"24.664k","max":"75k"},"深圳":{"average":"23.065k","max":"100k"}};
+			for(var key in dataFrontEnd){
+				datacity.push(key);
+				dataFrontEndAverage.push((dataFrontEnd[key]['average'].substring(0,(dataFrontEnd[key]['average']).length-1)));
+			}
+				for(var key in dataC){
+				//datacity.push(key);
+				dataCAverage.push((dataC[key]['average'].substring(0,(dataC[key]['average']).length-1)));
+			}
+				for(var key in dataTest){
+				//datacity.push(key);
+				dataTestAverage.push((dataTest[key]['average'].substring(0,(dataTest[key]['average']).length-1)));
+			}
+				for(var key in dataJava){
+				//datacity.push(key);
+				dataJavaAverage.push((dataJava[key]['average'].substring(0,(dataJava[key]['average']).length-1)));
+			}
+				for(var key in dataSuanfa){
+				//datacity.push(key);
+				dataSuanfaAverage.push((dataSuanfa[key]['average'].substring(0,(dataSuanfa[key]['average']).length-1)));
+			}
+			console.log(dataFrontEndAverage);
+
+	  require(['echarts','echarts/chart/bar'],function(ec){
+		  var myChart = ec.init(document.getElementById('main')); 
+                
+               var placeHoledStyle = {
+				normal:{
+					barBorderColor:'rgba(0,0,0,0)',
+					color:'rgba(0,0,0,0)'
+				},
+				emphasis:{
+					barBorderColor:'rgba(0,0,0,0)',
+					color:'rgba(0,0,0,0)'
+				}
+				};
+			var dataStyle = { 
+				normal: {
+					label : {
+						show: true,
+						position: 'insideLeft',
+						formatter: '{c}k'
+					}
+				}
+			};
+			option = {
+			  title: {
+				text: '	月薪平均水平',
+				subtext: '单位(千元)/k',
+				//sublink: 'http://e.weibo.com/1341556070/AiEscco0H'
+				},
+				tooltip : {
+					trigger: 'axis',
+					axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+						type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+					}
+					//formatter : '{b}<br/>{a0}:{c0}%<br/>{a2}:{c2}%<br/>{a4}:{c4}%<br/>{a6}:{c6}%'
+				},
+				legend: {
+					y: 55,
+					itemGap : document.getElementById('main').offsetWidth / 8,
+					data:['前端开发', 'Java开发','C++开发','算法研发','测试']
+				},
+				
+				grid: {
+					y: 80,
+					y2: 30
+				},
+				xAxis : [
+					{
+						type : 'value',
+						position: 'top',
+						splitLine: {show: false},
+						axisLabel: {show: false}
+					}
+				],
+				yAxis : [
+					{
+						type : 'category',
+						splitLine: {show: false},
+						data : datacity
+					}
+				],
+				series : [
+					{
+						name:'前端开发',
+						type:'bar',
+						stack: '总量',
+						itemStyle : dataStyle,
+						data:dataFrontEndAverage
+					},
+				
+					{
+						name:'Java开发',
+						type:'bar',
+						stack: '总量',
+						itemStyle : dataStyle,
+						data:dataJavaAverage
+					},
+					
+					{
+						name:'C++开发',
+						type:'bar',
+						stack: '总量',
+						itemStyle : dataStyle,
+						data:dataCAverage
+					},
+					
+					{
+						name:'算法研发',
+						type:'bar',
+						stack: '总量',
+						itemStyle : dataStyle,
+						data:dataSuanfaAverage
+					},
+					
+					{
+						name:'测试',
+						type:'bar',
+						stack: '总量',
+						itemStyle : dataStyle,
+						data:dataTestAverage
+					}
+				]
+			};
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+	  });
+	 </script>
+</body>
